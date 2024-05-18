@@ -1,0 +1,54 @@
+<article class="home-search-section">
+  <div class="home-search">
+    <h2>What do you want to do? <br /><br />We will help you.</h2>
+    <div class="home-search-list">
+      <ul>
+        <li (click)="searchList()">Search all</li>
+        <li (click)="searchList()">Things to do</li>
+        <li (click)="searchList()">Restaurants</li>
+        <li (click)="searchList()">Vacation Rentals</li>
+      </ul>
+    </div>
+    <div class="home-search-input-wrapper">
+      <div class="home-search-input form-group">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Places to go, things to do, restaurants..."
+        />
+        <button (click)="searchList()">Search</button>
+      </div>
+    </div>
+  </div>
+  <img class="home-img" src="../../assets/home_page_img.png" alt="Home image" />
+</article>
+<section class="sug-place">
+  <app-tour-list
+    [title]="'Suggested places'"
+    [showFilter]="false"
+    [initFilter]="{ limit: 4 }"
+  ></app-tour-list>
+</section>
+<div class="home-recomandation">
+  <section>
+    <h4>Sports, Activity</h4>
+    <article>
+      <h4>Your body can stand almost anything</h4>
+      <img src="../../assets/snowboarding.jpg" />
+    </article>
+  </section>
+  <section>
+    <h4>Tour</h4>
+    <article class="reverse">
+      <h4>Explore Mongolian great nature</h4>
+      <img src="../../assets/snowboarding.jpg" />
+    </article>
+  </section>
+  <section>
+    <h4>Extreme</h4>
+    <article>
+      <h4>Adreline junkies this way</h4>
+      <img src="../../assets/snowboarding.jpg" />
+    </article>
+  </section>
+</div>

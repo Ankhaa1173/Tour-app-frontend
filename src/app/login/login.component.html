@@ -1,0 +1,33 @@
+<main>
+  <section class="main">
+    <form class="form" [formGroup]="form" (submit)="submit()">
+      <h1>WELCOME</h1>
+      <div class="input-box">
+        <input
+          formControlName="username"
+          type="text"
+          placeholder="Username, Email"
+          id="username"
+          required
+        />
+      </div>
+      <div class="input-box">
+        <input
+          formControlName="password"
+          type="password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <div class="remember-forgot">
+        <label> <input type="checkbox" />Remember me </label>
+        <a href="#">Forgot Password</a>
+      </div>
+      <button type="submit" class="btn">LOG IN</button>
+      <div class="register-link">
+        <p>Not a member?</p>
+        <p>Join to access the finest offering on <a href="\signup">GURU</a></p>
+      </div>
+    </form>
+  </section>
+</main>

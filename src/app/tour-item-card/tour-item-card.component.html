@@ -1,0 +1,16 @@
+<article class="tour-main" (click)="handleClick()">
+  <div class="tour-main-container">
+    <div class="tour-main-image">
+      <img [src]="imgPath" [alt]="imgPath" />
+      <h4>{{ tourName }}</h4>
+      <fa-icon
+        [icon]="faHeart"
+        (click)="addTourToBasket(); $event.stopPropagation()"
+      ></fa-icon>
+    </div>
+    <div class="tour-main-rating">
+      <p>Level: {{ tourLevel }}</p>
+      <p>Price: {{ tourPrice }}</p>
+    </div>
+  </div>
+</article>

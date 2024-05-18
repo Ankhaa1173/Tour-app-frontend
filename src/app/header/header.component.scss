@@ -1,0 +1,150 @@
+.menu-bar {
+  border-radius: 2em;
+  border-color: black;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 4rem;
+  margin-bottom: 2rem;
+}
+.architects-daughter-regular {
+  font-family: "Architects Daughter", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.logo {
+  padding-left: 2em;
+  width: 10%;
+  text-decoration: none;
+  color: black;
+  font-size: 1.5em;
+}
+.search-bar {
+  width: 70%;
+  display: flex;
+  padding-left: 5rem;
+}
+.search-bar-wrapper {
+  width: 70%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.search-bar button {
+  position: absolute;
+  right: 0;
+  background-color: rgba(0, 66, 37, 1);
+  height: 80%;
+  aspect-ratio: 1;
+  border-radius: 2em;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+.search-bar input {
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 2em;
+}
+.menu-end {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.icon {
+  width: 2em;
+  height: 2em;
+}
+.currency-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.currency-dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 4em;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 1);
+  z-index: 2;
+  p {
+    text-align: center;
+  }
+}
+.currency-dropdown-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    margin: 0;
+  }
+}
+
+.currency-dropdown:hover .currency-dropdown-content {
+  display: block;
+}
+.currency-dropdown-content p:hover {
+  background-color: green;
+}
+.currency-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mat-form-field {
+    height: 4em;
+    width: 6em;
+    padding: 0;
+  }
+  .mat-form-field {
+    background-color: green !important;
+  }
+}
+.bg-green {
+  background-color: green !important;
+}
+.currency-dropdown:hover {
+  cursor: pointer;
+}
+.currency-dropdown img {
+  width: 1em;
+  height: 1em;
+  aspect-ratio: 1;
+}
+.location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 2em;
+  min-height: 2em;
+  height: 10%;
+  p {
+    margin: 0;
+  }
+  p.text-small {
+    font-size: 0.5em;
+  }
+  img {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+.location:hover {
+  cursor: pointer;
+}
+.user {
+  width: 2em;
+  height: 2em;
+}
+.user:hover {
+  cursor: pointer;
+}
+.main-user {
+  width: 8em;
+}

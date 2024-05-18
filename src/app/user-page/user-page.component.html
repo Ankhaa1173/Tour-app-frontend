@@ -1,0 +1,182 @@
+<main>
+  <article class="user-info">
+    <img src="../../assets/testImage.png" alt="" />
+    <div class="user-infos">
+      <article>
+        <h2>{{ userData["first_name"] + "-" + userData["last_name"] }}</h2>
+        <div class="user-info-list">
+          <ul>
+            <li>{{ userData["email"] }}</li>
+            <li>Ulaanbaatar Mongolia</li>
+          </ul>
+          <ul>
+            <li>User level: {{ userData["user_level"] }}</li>
+            <li>Created date: {{ userData["created_date"] }}</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </article>
+
+  <article class="add-info">
+    <aside>
+      <h4 (click)="changePage(1)" *ngIf="userLevel == 1">Saved places</h4>
+      <h4 (click)="changePage(2)">Settings</h4>
+      <h4 (click)="changePage(3)" *ngIf="userLevel == 1">Reviews</h4>
+      <h4 (click)="changePage(4)" *ngIf="userLevel == 0">Add Tour</h4>
+      <h4 (click)="changePage(5)" *ngIf="userLevel == 0">My tours</h4>
+    </aside>
+    <article [class.showBG]="pageId == 2 || pageId == 4">
+      <div *ngIf="pageId == 1">
+        <!-- <h2>Saved places</h2>
+        <div class="tour-list">
+          <tour-item-card
+            *ngFor="let tour of tourData"
+            [tourName]="tour.name"
+            [tourLevel]="tour.level"
+            [tourPrice]="tour.price"
+            [tourId]="tour.id"
+          ></tour-item-card>
+        </div> -->
+        <app-tour-list
+          [showFilter]="false"
+          [initFilter]="{ id: savedPlaceList }"
+        ></app-tour-list>
+      </div>
+      <div *ngIf="pageId == 2">
+        <h2>Settings</h2>
+        <form [formGroup]="userForm" (submit)="updateUser()">
+          <div>
+            <label for="firstName">First name</label>
+            <input
+              formControlName="first_name"
+              type="text"
+              id="firstName"
+              name="firstName"
+            />
+          </div>
+          <div>
+            <label for="lastName">Last name</label>
+            <input
+              formControlName="last_name"
+              type="text"
+              id="lastName"
+              name="lastName"
+            />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              name="email"
+            />
+          </div>
+          <div *ngIf="false">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone" />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+      <div *ngIf="pageId == 3">
+        <h2>Reviews</h2>
+        <div class="reviews d-flex flex-wrap justify-content-between">
+          <review-card></review-card>
+          <review-card></review-card>
+          <review-card></review-card>
+          <review-card></review-card>
+        </div>
+      </div>
+      <div *ngIf="pageId == 4">
+        <h2>Add Tour</h2>
+        <form [formGroup]="form" (submit)="insertForm()" class="d-flex">
+          <div>
+            <label for="name">Name</label>
+            <input formControlName="name" type="text" id="name" name="name" />
+          </div>
+          <div>
+            <label for="duration">Duration</label>
+            <input
+              formControlName="duration"
+              type="number"
+              id="duration"
+              name="duration"
+            />
+          </div>
+          <div>
+            <label for="price">Price</label>
+            <input
+              formControlName="price"
+              type="number"
+              id="price"
+              name="price"
+            />
+          </div>
+          <div>
+            <label for="level">Level</label>
+            <input
+              formControlName="level"
+              type="number"
+              id="level"
+              name="level"
+            />
+          </div>
+          <div>
+            <label for="description">description</label>
+            <input
+              formControlName="description"
+              type="text"
+              id="description"
+              name="description"
+            />
+          </div>
+          <div>
+            <label for="district">district</label>
+            <input
+              formControlName="district"
+              type="text"
+              id="district"
+              name="district"
+            />
+          </div>
+          <div>
+            <label for="province">province</label>
+            <input
+              formControlName="province"
+              type="text"
+              id="province"
+              name="province"
+            />
+          </div>
+          <div>
+            <label for="img">img</label>
+            <input
+              formControlName="main_img_path"
+              type="file"
+              id="img"
+              name="img"
+              (change)="onImageChanged($event)"
+            />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+      <div *ngIf="pageId == 5">
+        <!-- <h2>My tours</h2>
+        <div class="tour-list">
+          <tour-item-card
+            *ngFor="let tour of tourData"
+            [tourName]="tour.name"
+            [tourLevel]="tour.level"
+            [tourPrice]="tour.price"
+            [tourId]="tour.id"
+            [imgPath]="tour.main_img_path"
+          ></tour-item-card>
+        </div> -->
+        <app-tour-list [showFilter]="false"></app-tour-list>
+      </div>
+    </article>
+  </article>
+</main>

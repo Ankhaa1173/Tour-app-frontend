@@ -1,0 +1,74 @@
+<header>
+  <nav class="menu-bar">
+    <a href="#" class="logo architects-daughter-regular">GURU</a>
+    <!-- search bar -->
+    <div class="search-bar">
+      <div class="search-bar-wrapper">
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          placeholder="Places to go, things to do, restaurants..."
+        />
+        <button (click)="searchList()">Search</button>
+      </div>
+    </div>
+    <div class="menu-end">
+      <!--weather icon-->
+      <!-- <img alt="weather" src="../../assets/rain.png" class="weather icon" /> -->
+
+      <!--currency icon-->
+      <!-- <div class="currency-dropdown">
+        <p>USD</p>
+        <img src="../../assets/down-chevron.png" />
+        <mat-form-field>
+          <mat-select>
+            @for (currency of currencyArr; track currency) {
+            <mat-option [value]="currency.value">{{
+              currency.name
+            }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+      <div class="currency-dropdown">
+        <div class="currency-dropdown-main">
+          <p>MNT</p>
+          <img src="../../assets/down-chevron.png" />
+        </div>
+        <div class="currency-dropdown-content">
+          <p>USD</p>
+          <p>CNY</p>
+          <p>EUP</p>
+          <p>JPY</p>
+        </div>
+      </div>
+
+      <!--location-->
+
+      <div class="location">
+        <img src="../../assets/location-icon.png" />
+        <div>
+          <p class="text-small">Your location</p>
+          <p>Sukhbaatar district</p>
+        </div>
+        <img src="../../assets/down-chevron.png" />
+      </div>
+
+      <div>
+        <div
+          *ngIf="authenticated"
+          class="main-user d-flex justify-content-around"
+        >
+          <img
+            class="user"
+            src="../../assets/user.png"
+            alt=""
+            (click)="userPage()"
+          />
+          <div (click)="logout()">logout</div>
+        </div>
+        <div *ngIf="!authenticated" (click)="login()">Login</div>
+      </div>
+    </div>
+  </nav>
+</header>

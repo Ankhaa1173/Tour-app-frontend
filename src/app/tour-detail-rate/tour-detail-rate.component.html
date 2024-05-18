@@ -1,0 +1,19 @@
+<main>
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="formfield">
+      <label for="review">review</label>
+      <textarea
+        formControlName="reveiw"
+        rows="4"
+        cols="50"
+        id="review"
+        name="review"
+      ></textarea>
+    </div>
+    <div class="formfield">
+      <label for="rating">rating</label>
+      <rating-star (ratingStar)="getRating($event)"></rating-star>
+    </div>
+    <input class="formfield" type="submit" value="submit" />
+  </form>
+</main>

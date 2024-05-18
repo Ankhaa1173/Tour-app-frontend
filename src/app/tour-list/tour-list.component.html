@@ -1,0 +1,16 @@
+<main class="d-flex">
+  <filter *ngIf="showFilter"></filter>
+  <div class="tour-list-main">
+    <h2>{{ title }}</h2>
+    <div class="tour-list">
+      <tour-item-card
+        *ngFor="let tour of tourData"
+        [tourName]="tour.name"
+        [tourLevel]="tour.level"
+        [tourPrice]="tour.price"
+        [tourId]="tour.id"
+        [imgPath]="tour.main_img_path"
+      ></tour-item-card>
+    </div>
+  </div>
+</main>

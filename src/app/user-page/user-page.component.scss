@@ -1,0 +1,96 @@
+main {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+.user-info {
+  display: flex;
+  padding: 2em;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2em;
+  div.user-infos {
+    margin-left: 4em;
+    width: calc(100% - 10em);
+    padding-right: 2em;
+  }
+  div.user-info-list {
+    margin-top: 2em;
+    display: flex;
+    justify-content: space-around;
+    li {
+      margin-top: 1em;
+    }
+  }
+  img {
+    width: 10em;
+    height: 10em;
+    border-radius: 2em;
+  }
+}
+.add-info {
+  margin-top: 2em;
+  display: flex;
+
+  aside {
+    padding: 2em;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2em;
+    height: 30em;
+    h4 {
+      padding: 1em;
+      text-align: center;
+    }
+    h4:hover {
+      background-color: rgba(0, 66, 37, 1);
+      border-radius: 2em;
+      color: rgb(255, 255, 255);
+      transition: background-color 0.2s ease-in-out;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+  article {
+    margin-left: 2em;
+    padding: 2em;
+    padding-top: 1em;
+    width: 80%;
+    &.showBG {
+      background-color: rgb(255, 255, 255);
+      border-radius: 2em;
+    }
+    h2 {
+      color: rgba(0, 66, 37, 1);
+      font-weight: bold;
+    }
+    form {
+      width: 50%;
+      margin-left: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        input {
+          height: 3em;
+          border-radius: 2em;
+          border: 2px solid rgba(0, 66, 37, 1);
+          padding-left: 1em;
+          padding-right: 1em;
+        }
+      }
+    }
+    .tour-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  .reviews review-card {
+    width: 45%;
+    margin-top: 2em;
+  }
+  .reviews:nth-child(2n) {
+    flex-basis: 100%;
+  }
+}

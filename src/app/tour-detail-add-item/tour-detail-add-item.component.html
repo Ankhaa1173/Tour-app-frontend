@@ -1,0 +1,46 @@
+<div class="main">
+  <h2>Add Tour</h2>
+  <form [formGroup]="form" (submit)="submit()">
+    <div>
+      <label for="name">Name</label>
+      <input formControlName="name" type="text" id="name" name="name" />
+    </div>
+    <div>
+      <label for="duration">Duration</label>
+      <input
+        formControlName="duration"
+        type="number"
+        id="duration"
+        name="duration"
+      />
+    </div>
+    <div>
+      <label for="price">Price</label>
+      <input formControlName="price" type="number" id="price" name="price" />
+    </div>
+    <div>
+      <label for="level">Level</label>
+      <input formControlName="level" type="number" id="level" name="level" />
+    </div>
+    <div>
+      <label for="description">description</label>
+      <input
+        formControlName="description"
+        type="text"
+        id="description"
+        name="description"
+      />
+    </div>
+    <div>
+      <label for="img">img</label>
+      <input
+        formControlName="img_path"
+        type="file"
+        id="img"
+        name="img"
+        (change)="onImageChanged($event)"
+      />
+    </div>
+    <input type="submit" value="submit" />
+  </form>
+</div>

@@ -1,0 +1,45 @@
+<main>
+  <section class="main">
+    <form class="form" [formGroup]="form" (submit)="submit()">
+      <h1>Join to access the finest offerings on Guru</h1>
+      <div class="input-box-name input-box">
+        <input
+          formControlName="first_name"
+          type="text"
+          placeholder="First Name"
+          required
+        />
+        <input
+          formControlName="last_name"
+          type="text"
+          placeholder="Last Name"
+          required
+        />
+      </div>
+
+      <div class="input-box">
+        <input
+          formControlName="email"
+          type="text"
+          placeholder="Email"
+          required
+        />
+      </div>
+      <div class="input-box">
+        <input
+          formControlName="password"
+          type="password"
+          placeholder="Create your password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+      <div class="register-link">
+        <p>Not a member?</p>
+      </div>
+      <div class="register-link">
+        <p>Log In using your Guru account <a href="\login">LOG IN</a></p>
+      </div>
+    </form>
+  </section>
+</main>

@@ -1,0 +1,43 @@
+.tour-main {
+  // border-color: black;
+  // border-style: solid;
+  border-radius: 2em;
+  width: 100%;
+  //   height: 30em;
+  margin-top: 1em;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  .tour-main-container {
+    margin-top: 0.75em;
+    padding: 1em;
+  }
+  .tour-main-image {
+    // background-color: red;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 1em;
+    overflow: hidden;
+    img {
+      background-color: rgba(0, 66, 37, 1);
+      width: 15em;
+      height: 15em;
+      aspect-ratio: 4/3;
+    }
+    h4 {
+      position: absolute;
+      bottom: 0;
+      width: 15em;
+      padding-left: 1em;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+    }
+  }
+}
+.tour-main-rating {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

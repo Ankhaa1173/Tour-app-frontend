@@ -1,0 +1,51 @@
+.infos {
+  margin-top: 40em;
+}
+.info {
+  margin-top: 2em;
+}
+.reviews {
+  margin-top: 2em;
+}
+.reviews review-card {
+  width: 45%;
+  margin-top: 2em;
+}
+.reviews:nth-child(2n) {
+  flex-basis: 100%;
+}
+.top {
+  width: 100%;
+  display: flex;
+  img {
+    width: 30%;
+    border-radius: 2em;
+    height: 25em;
+  }
+  article {
+    margin-left: 5%;
+    width: 65%;
+    margin-top: 2em;
+    .infos {
+      margin-top: 6em;
+    }
+  }
+}
+.tour-items {
+  margin-top: 2em;
+  margin-left: 2em;
+}
+::ng-deep .custom-dialog-bg {
+  mat-dialog-container {
+    background-color: white !important;
+  }
+}
+.name * {
+  margin: 0;
+}
+.name {
+  padding-right: 2em;
+}
+.rating p {
+  margin-right: 1em;
+}
