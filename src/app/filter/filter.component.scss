@@ -35,3 +35,8 @@ input[type="radio"] {
 input[type="checkbox"] {
   accent-color: rgba(0, 66, 37, 1);
 }
+.full-width {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

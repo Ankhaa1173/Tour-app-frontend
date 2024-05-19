@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TourDetailRateComponent } from './tour-detail-rate/tour-detail-rate.component';
 import { TourDetailAddItemComponent } from './tour-detail-add-item/tour-detail-add-item.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -21,4 +22,5 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'tour-detail-rate', component: TourDetailRateComponent },
   { path: 'tour-detail-add-item', component: TourDetailAddItemComponent },
+  { path: 'dropdowntest', component: DropdownComponent },
 ];

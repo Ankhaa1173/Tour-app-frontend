@@ -39,7 +39,7 @@ export class TourListComponent implements OnInit {
 
   ngOnInit() {
     if (!this.getDataByNavigation) {
-      this.filter = this.service.passedData;
+      this.initFilter = this.service.passedData;
       console.log('inited');
       this.getAllTours();
     }

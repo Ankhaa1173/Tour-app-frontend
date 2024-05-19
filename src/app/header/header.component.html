@@ -31,16 +31,7 @@
         </mat-form-field>
       </div> -->
       <div class="currency-dropdown">
-        <div class="currency-dropdown-main">
-          <p>MNT</p>
-          <img src="../../assets/down-chevron.png" />
-        </div>
-        <div class="currency-dropdown-content">
-          <p>USD</p>
-          <p>CNY</p>
-          <p>EUP</p>
-          <p>JPY</p>
-        </div>
+        <app-dropdown [data]="currencyArr" [noDefault]="false"></app-dropdown>
       </div>
 
       <!--location-->

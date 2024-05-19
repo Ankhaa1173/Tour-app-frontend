@@ -12,7 +12,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 export class RatingStarComponent {
   faStar = faStar;
   rating: number = 0;
-  @Output() ratingStar = new EventEmitter<number>();
+  @Output() ratingStarEvent = new EventEmitter<number>();
   constructor() {}
 
   setRating(value: number) {
@@ -21,6 +21,6 @@ export class RatingStarComponent {
     } else {
       this.rating = value;
     }
-    this.ratingStar.emit(this.rating);
+    this.ratingStarEvent.emit(this.rating);
   }
 }

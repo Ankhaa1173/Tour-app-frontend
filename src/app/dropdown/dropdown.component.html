@@ -1,0 +1,25 @@
+<div id="container">
+  <div id="main" (click)="isDropDownActive = !isDropDownActive">
+    <div id="option-value">
+      {{
+        noDefault
+          ? selectedOption?.name || "Select Option"
+          : selectedOption?.name
+      }}
+    </div>
+    <div id="options" [ngClass]="{ active: isDropDownActive }">
+      <div
+        id="option-item"
+        *ngFor="let item of data"
+        (click)="
+          changeValue(item.value);
+          selectedOption = item;
+          isDropDownActive = false;
+          $event.stopImmediatePropagation()
+        "
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+</div>
