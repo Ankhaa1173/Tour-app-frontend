@@ -33,8 +33,11 @@ export class UserPageComponent {
   tourData: any = [];
   userLevel: number;
   userData: any;
+
   form: FormGroup;
   userForm: FormGroup;
+  companyForm: FormGroup;
+
   img: File;
   savedPlaceList: number[];
   constructor(
@@ -69,6 +72,11 @@ export class UserPageComponent {
       last_name: '',
       email: '',
     });
+    this.companyForm = this.formBuilder.group({
+      name: '',
+      website: '',
+      bankaccountno: '',
+    });
     this.checkUser();
     this.getAllTours();
   }
@@ -97,9 +105,6 @@ export class UserPageComponent {
   }
   changePage(value: number) {
     this.pageId = value;
-    if (value == 5) {
-      this.getAllTours();
-    }
   }
   insertForm() {
     let data = this.form.getRawValue();
@@ -121,6 +126,12 @@ export class UserPageComponent {
     this.http.updateUser(data).subscribe((res: any) => {
       alert(res['status']);
       this.checkUser();
+    });
+  }
+  insertCompany() {
+    let data = this.companyForm.getRawValue();
+    this.http.insertCompany(data).subscribe((res: any) => {
+      alert(res['status']);
     });
   }
   onImageChanged(event: any) {

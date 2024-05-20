@@ -8,6 +8,7 @@ import { HttpService } from '../../services/http-service.service';
 import { MatSelectModule } from '@angular/material/select';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { LocationPanelComponent } from '../location-panel/location-panel.component';
 
 interface Currency {
   name: string;
@@ -16,7 +17,13 @@ interface Currency {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatSelectModule, DropdownComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatSelectModule,
+    DropdownComponent,
+    LocationPanelComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -62,5 +69,10 @@ export class HeaderComponent implements OnInit {
   }
   login() {
     this.router.navigate(['/login']);
+  }
+  insertSavedPlaces() {
+    let toursRaw = localStorage.getItem('tourBasket');
+    let tours: number[] = JSON.parse(toursRaw == null ? '[]' : toursRaw);
+    //TODO hiih
   }
 }

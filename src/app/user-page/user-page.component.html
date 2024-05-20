@@ -20,13 +20,20 @@
 
   <article class="add-info">
     <aside>
-      <h4 (click)="changePage(1)" *ngIf="userLevel == 1">Saved places</h4>
+      <h4 (click)="changePage(1)" *ngIf="userLevel == 0">Saved places</h4>
       <h4 (click)="changePage(2)">Settings</h4>
-      <h4 (click)="changePage(3)" *ngIf="userLevel == 1">Reviews</h4>
-      <h4 (click)="changePage(4)" *ngIf="userLevel == 0">Add Tour</h4>
-      <h4 (click)="changePage(5)" *ngIf="userLevel == 0">My tours</h4>
+      <h4 (click)="changePage(3)" *ngIf="userLevel == 0">Reviews</h4>
+      <h4 (click)="changePage(4)" *ngIf="userLevel == 1">Add Tour</h4>
+      <h4 (click)="changePage(5)" *ngIf="userLevel == 1">My tours</h4>
+      <h4 (click)="changePage(6)" *ngIf="userLevel == 1">
+        Change company info
+      </h4>
+
+      <h4 (click)="changePage(7)" *ngIf="userLevel == 9">Add Company</h4>
+      <h4 (click)="changePage(8)" *ngIf="userLevel == 9">Add operator</h4>
+      <h4 (click)="changePage(9)" *ngIf="userLevel == 9">Add constant</h4>
     </aside>
-    <article [class.showBG]="pageId == 2 || pageId == 4">
+    <article [class.showBG]="pageId == 2 || pageId == 4 || pageId == 7">
       <div *ngIf="pageId == 1">
         <!-- <h2>Saved places</h2>
         <div class="tour-list">
@@ -176,6 +183,38 @@
           ></tour-item-card>
         </div> -->
         <app-tour-list [showFilter]="false"></app-tour-list>
+      </div>
+      <div *ngIf="pageId == 7">
+        <h2>Add Company</h2>
+        <form
+          [formGroup]="companyForm"
+          (submit)="insertCompany()"
+          class="d-flex"
+        >
+          <div>
+            <label for="name">Name</label>
+            <input formControlName="name" type="text" id="name" name="name" />
+          </div>
+          <div>
+            <label for="website">Website</label>
+            <input
+              formControlName="website"
+              type="text"
+              id="website"
+              name="website"
+            />
+          </div>
+          <div>
+            <label for="bankaccountno">Bank account</label>
+            <input
+              formControlName="bankaccountno"
+              type="text"
+              id="bankaccountno"
+              name="bankaccountno"
+            />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
       </div>
     </article>
   </article>

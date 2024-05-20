@@ -44,10 +44,10 @@
 
   <div class="reviews d-flex flex-wrap justify-content-between">
     <review-card
-      *ngFor="let reveiw of reviewData"
+      *ngFor="let review of reviewData"
       [userName]="dummyName"
-      [rating]="reveiw.rating"
-      [review]="reveiw.reveiw"
+      [rating]="review.rating"
+      [review]="review.review"
     ></review-card>
   </div>
 </div>

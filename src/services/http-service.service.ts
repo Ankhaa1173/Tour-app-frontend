@@ -68,4 +68,12 @@ export class HttpService {
   insertTourItem(data: any) {
     return this.http.post(this.url + 'tour/tourItemInsert', data);
   }
+
+  insertCompany(data: any) {
+    return this.http.post(this.url + 'user/companyListInsert', data);
+  }
+
+  insertSavedPlaces(data: any) {
+    return this.http.post(this.url + 'tour/savedPlaceListInsert', data);
+  }
 }

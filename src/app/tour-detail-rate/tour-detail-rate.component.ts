@@ -33,7 +33,7 @@ export class TourDetailRateComponent implements OnInit {
     this.checkUser();
     this.tourId = this.storage.getTourID();
     this.form = this.formBuilder.group({
-      reveiw: '',
+      review: '',
       rating: 0,
     });
   }

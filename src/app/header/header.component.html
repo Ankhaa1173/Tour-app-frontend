@@ -36,15 +36,14 @@
 
       <!--location-->
 
-      <div class="location">
+      <!-- <div class="location">
         <img src="../../assets/location-icon.png" />
         <div>
           <p class="text-small">Your location</p>
           <p>Sukhbaatar district</p>
         </div>
-        <img src="../../assets/down-chevron.png" />
-      </div>
-
+      </div> -->
+      <app-location-panel></app-location-panel>
       <div>
         <div
           *ngIf="authenticated"
@@ -56,9 +55,15 @@
             alt=""
             (click)="userPage()"
           />
-          <div (click)="logout()">logout</div>
+          <div class="logout" (click)="logout()">Logout</div>
         </div>
-        <div *ngIf="!authenticated" (click)="login()">Login</div>
+        <div
+          *ngIf="!authenticated"
+          style="padding-right: 1em"
+          (click)="login()"
+        >
+          Login
+        </div>
       </div>
     </div>
   </nav>

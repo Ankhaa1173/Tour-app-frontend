@@ -1,0 +1,23 @@
+.location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 2em;
+  min-height: 2em;
+  width: 15em;
+  height: 10%;
+  p {
+    margin: 0;
+  }
+  p.text-small {
+    font-size: 0.5em;
+  }
+  img {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+.location:hover {
+  cursor: pointer;
+}

@@ -38,5 +38,17 @@ export class LoginComponent implements OnInit {
       Emitters.authEmitter.emit(true);
       this.locationService.back();
     });
+
+    this.http.loginUser(this.form.getRawValue()).subscribe(
+      (res: any) => {
+        localStorage.setItem('jwt', res['jwt']);
+        Emitters.authEmitter.emit(true);
+        this.locationService.back();
+      },
+      (err) => {
+        Emitters.authEmitter.emit(false);
+        alert(err.error.detail);
+      }
+    );
   }
 }
