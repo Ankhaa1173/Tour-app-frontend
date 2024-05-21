@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
     });
   }
   searchList() {
-    this.listService.passedData = { company: this.searchText };
+    this.listService.passedData = { name: this.searchText };
     this.router.navigate(['/tour-list']);
   }
   userPage() {

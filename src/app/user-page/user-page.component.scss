@@ -52,7 +52,7 @@ main {
     margin-left: 2em;
     padding: 2em;
     padding-top: 1em;
-    width: 80%;
+    width: 100%;
     &.showBG {
       background-color: rgb(255, 255, 255);
       border-radius: 2em;
@@ -67,6 +67,12 @@ main {
       display: flex;
       flex-direction: column;
       align-items: center;
+      div.form-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
       div {
         display: flex;
         flex-direction: column;
@@ -84,6 +90,9 @@ main {
     .tour-list {
       display: flex;
       flex-wrap: wrap;
+    }
+    .orders {
+      width: 100%;
     }
   }
   .reviews review-card {

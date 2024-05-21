@@ -10,11 +10,17 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TourDetailRateComponent } from '../tour-detail-rate/tour-detail-rate.component';
 import { TourDetailAddItemComponent } from '../tour-detail-add-item/tour-detail-add-item.component';
+import { QrShowComponent } from '../qr-show/qr-show.component';
 
 @Component({
   selector: 'tour-detail',
   standalone: true,
-  imports: [ReviewCardComponent, TourDetailItemComponent, CommonModule],
+  imports: [
+    ReviewCardComponent,
+    TourDetailItemComponent,
+    CommonModule,
+    QrShowComponent,
+  ],
   templateUrl: './tour-detail.component.html',
   styleUrl: './tour-detail.component.scss',
 })
@@ -37,7 +43,12 @@ export class TourDetailComponent {
     this.tourId = this.storage.getTourID();
     this.http
       .getTourDetail('tourDetail', this.tourId)
-      .subscribe((data: any) => (this.tourDetailData = data));
+      .subscribe((data: any) => {
+        this.tourDetailData = data;
+        if (!this.tourDetailData.average_rating) {
+          this.tourDetailData.average_rating = 0;
+        }
+      });
     this.getAllTours();
     this.getAllReview();
     this.checkUser();
@@ -72,10 +83,22 @@ export class TourDetailComponent {
     // this.router.navigate(['/tour-detail-rate']);
   }
   addTour() {
-    if (localStorage.getItem('jwt') && this.userLevel < 1) {
+    if (localStorage.getItem('jwt') && this.userLevel > 1) {
       this.service.passedData = this.tourId;
       // this.router.navigate(['/tour-detail-add-item']);
       let dialogRef = this.dialog.open(TourDetailAddItemComponent, {
+        height: '400px',
+        width: '600px',
+        panelClass: 'custom-dialog-bg',
+      });
+      dialogRef.afterClosed().subscribe((result) => this.getAllTours());
+    }
+  }
+  getQr(qr: any) {
+    if (localStorage.getItem('jwt') && this.userLevel == 1) {
+      this.service.qrCode = qr;
+      // this.router.navigate(['/tour-detail-add-item']);
+      let dialogRef = this.dialog.open(QrShowComponent, {
         height: '400px',
         width: '600px',
         panelClass: 'custom-dialog-bg',
@@ -89,11 +112,35 @@ export class TourDetailComponent {
         Emitters.authEmitter.emit(true);
         this.userLevel = res['user_level'];
         this.userData = res;
-        this.userData['company'] = 1;
       },
       error: (err) => {
         Emitters.authEmitter.emit(false);
         this.storage.logout();
+      },
+    });
+  }
+  order() {
+    let data = {
+      user_id: this.userData['id'],
+      tour_id: this.tourId,
+      pay_amount: this.tourDetailData['price'],
+      paid_amount: this.tourDetailData['price'] / 10,
+      is_confirmed: true,
+      company: this.tourDetailData['company'],
+      status: 'S',
+    };
+    this.http.insertOrder(data).subscribe({
+      next: (res: any) => {
+        let img;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          img = reader.result as string; // Convert blob to base64 data URL
+          this.getQr(img);
+        };
+        reader.readAsDataURL(res);
+      },
+      error: (err) => {
+        alert('error:' + err);
       },
     });
   }

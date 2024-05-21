@@ -1,0 +1,28 @@
+<div class="main">
+  <div class="order-list">
+    <div class="row">
+      <div class="label">Tour Date:</div>
+      <div class="value">{{ tourDate | date : "medium" }}</div>
+    </div>
+    <div class="row">
+      <div class="label">Order Date:</div>
+      <div class="value">{{ orderDate | date : "medium" }}</div>
+    </div>
+    <div class="row">
+      <div class="label">Pay Amount:</div>
+      <div class="value">{{ payAmount }}</div>
+    </div>
+    <div class="row">
+      <div class="label">Paid Amount:</div>
+      <div class="value">{{ paidAmount }}</div>
+    </div>
+    <div class="row">
+      <div class="label">Confirmed:</div>
+      <div class="value">{{ isConfirmed }}</div>
+    </div>
+    <div class="row">
+      <div class="label">Status:</div>
+      <div class="value">{{ status }}</div>
+    </div>
+  </div>
+</div>

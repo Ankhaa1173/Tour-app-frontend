@@ -3,10 +3,10 @@
     <h2>What do you want to do? <br /><br />We will help you.</h2>
     <div class="home-search-list">
       <ul>
-        <li (click)="searchList()">Search all</li>
-        <li (click)="searchList()">Things to do</li>
-        <li (click)="searchList()">Restaurants</li>
-        <li (click)="searchList()">Vacation Rentals</li>
+        <li (click)="searchList(null)">Search all</li>
+        <li (click)="searchList({ type: 'food' })">Things to do</li>
+        <li (click)="searchList({ type: 'hotel' })">Restaurants</li>
+        <li (click)="searchList({ type: 'travel' })">Vacation Rentals</li>
       </ul>
     </div>
     <div class="home-search-input-wrapper">
@@ -16,7 +16,7 @@
           type="text"
           placeholder="Places to go, things to do, restaurants..."
         />
-        <button (click)="searchList()">Search</button>
+        <button (click)="searchList(null)">Search</button>
       </div>
     </div>
   </div>
@@ -31,24 +31,30 @@
 </section>
 <div class="home-recomandation">
   <section>
-    <h4>Sports, Activity</h4>
+    <h4>Travel</h4>
     <article>
       <h4>Your body can stand almost anything</h4>
-      <img src="../../assets/snowboarding.jpg" />
+      <img
+        src="../../assets/otgontenger.jpg"
+        (click)="searchList({ type: 'travel' })"
+      />
     </article>
   </section>
   <section>
-    <h4>Tour</h4>
+    <h4>Food</h4>
     <article class="reverse">
-      <h4>Explore Mongolian great nature</h4>
-      <img src="../../assets/snowboarding.jpg" />
+      <h4>Explore Mongolian cuisines</h4>
+      <img src="../../assets/food.jpg" (click)="searchList({ type: 'food' })" />
     </article>
   </section>
   <section>
-    <h4>Extreme</h4>
+    <h4>Hotel</h4>
     <article>
-      <h4>Adreline junkies this way</h4>
-      <img src="../../assets/snowboarding.jpg" />
+      <h4>Comfort is our priority</h4>
+      <img
+        src="../../assets/hotel.jpg"
+        (click)="searchList({ type: 'hotel' })"
+      />
     </article>
   </section>
 </div>

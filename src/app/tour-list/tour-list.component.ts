@@ -31,6 +31,9 @@ export class TourListComponent implements OnInit {
     this.navigationSubscribe = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd && e.url === '/tour-list') {
         this.getDataByNavigation = false;
+        if (this.service.passedData) {
+          this.initFilter = this.service.passedData;
+        }
         this.ngOnInit();
         this.getDataByNavigation = true;
       }
@@ -39,7 +42,9 @@ export class TourListComponent implements OnInit {
 
   ngOnInit() {
     if (!this.getDataByNavigation) {
-      this.initFilter = this.service.passedData;
+      if (this.service.passedData) {
+        this.initFilter = this.service.passedData;
+      }
       console.log('inited');
       this.getAllTours();
     }

@@ -13,6 +13,7 @@ import {
 import { TourListComponent } from '../tour-list/tour-list.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { routes } from '../app.routes';
+import { OrderlistComponent } from '../orderlist/orderlist.component';
 
 @Component({
   selector: 'app-user-page',
@@ -24,6 +25,7 @@ import { routes } from '../app.routes';
     FormsModule,
     ReactiveFormsModule,
     TourListComponent,
+    OrderlistComponent,
   ],
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss',
@@ -33,13 +35,18 @@ export class UserPageComponent {
   tourData: any = [];
   userLevel: number;
   userData: any;
+  companyData: any;
 
   form: FormGroup;
   userForm: FormGroup;
   companyForm: FormGroup;
+  operatorForm: FormGroup;
+  constantForm: FormGroup;
 
   img: File;
   savedPlaceList: number[];
+  reviewList: any = [];
+  orderList: any = [];
   constructor(
     private http: HttpService,
     private formBuilder: FormBuilder,
@@ -56,26 +63,38 @@ export class UserPageComponent {
     let toursRaw = localStorage.getItem('tourBasket');
     this.savedPlaceList = JSON.parse(toursRaw == null ? '[]' : toursRaw);
     this.form = this.formBuilder.group({
-      name: '',
-      duration: 0,
-      company: '',
-      price: 0,
-      level: 0,
-      description: '',
-      district: '',
-      province: '',
-      main_img_path: '',
+      name: null,
+      duration: null,
+      company: null,
+      price: null,
+      level: null,
+      description: null,
+      district: null,
+      province: null,
+      main_img_path: null,
+      recommended_people_no: null,
+      type: null,
+      tag1: null,
+      tag2: null,
+      tag3: null,
     });
     this.userForm = this.formBuilder.group({
       id: 0,
-      first_name: '',
-      last_name: '',
-      email: '',
+      first_name: null,
+      last_name: null,
+      email: null,
+      phone_no: null,
+      password: null,
+      password_re: null,
     });
     this.companyForm = this.formBuilder.group({
       name: '',
       website: '',
       bankaccountno: '',
+    });
+    this.operatorForm = this.formBuilder.group({
+      id: '',
+      company_id: '',
     });
     this.checkUser();
     this.getAllTours();
@@ -93,7 +112,35 @@ export class UserPageComponent {
         Emitters.authEmitter.emit(true);
         this.userLevel = res['user_level'];
         this.userData = res;
-        this.userData['company'] = 1;
+        if (this.userLevel == 2) {
+          this.http.getOperator({ id: this.userData['id'] }).subscribe({
+            next: (res: any) => {
+              this.userData['company'] = res['company_id'];
+              this.http.detailCompany({ id: res['company_id'] }).subscribe({
+                next: (res: any) => {
+                  this.companyData = res;
+                  this.companyForm.controls['name'].setValue(
+                    this.companyData['name']
+                  );
+                  this.companyForm.controls['website'].setValue(
+                    this.companyData['website']
+                  );
+                  this.companyForm.controls['bankaccountno'].setValue(
+                    this.companyData['bankaccountno']
+                  );
+                },
+                error: (err: any) => {
+                  alert(err.error.detail);
+                },
+              });
+            },
+            error: (err: any) => {
+              alert(err.error.detail);
+            },
+          });
+        }
+        this.getReviews();
+        this.getOrders();
         this.pageId = 2;
       },
       error: (err) => {
@@ -105,6 +152,26 @@ export class UserPageComponent {
   }
   changePage(value: number) {
     this.pageId = value;
+  }
+  getReviews() {
+    this.http.getTourReviews({ userId: this.userData['id'] }).subscribe({
+      next: (res: any) => {
+        this.reviewList = res;
+      },
+      error: (err: any) => {
+        alert(err);
+      },
+    });
+  }
+  getOrders() {
+    this.http.getOrdersForUser({ user_id: this.userData['id'] }).subscribe({
+      next: (res: any) => {
+        this.orderList = res;
+      },
+      error: (err: any) => {
+        alert(err);
+      },
+    });
   }
   insertForm() {
     let data = this.form.getRawValue();
@@ -122,6 +189,10 @@ export class UserPageComponent {
   }
   updateUser() {
     let data = this.userForm.getRawValue();
+    if (data['password'] != data['password_re']) {
+      alert('Password not match!');
+      return;
+    }
     data['id'] = this.userData['id'];
     this.http.updateUser(data).subscribe((res: any) => {
       alert(res['status']);
@@ -131,6 +202,18 @@ export class UserPageComponent {
   insertCompany() {
     let data = this.companyForm.getRawValue();
     this.http.insertCompany(data).subscribe((res: any) => {
+      alert(res['status']);
+    });
+  }
+  updateCompany() {
+    let data = this.companyForm.getRawValue();
+    this.http.insertCompany(data).subscribe((res: any) => {
+      alert(res['status']);
+    });
+  }
+  insertOperator() {
+    let data = this.operatorForm.getRawValue();
+    this.http.insertOperator(data).subscribe((res: any) => {
       alert(res['status']);
     });
   }

@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class TourDetailService {
   passedData: any;
   tourIdForRate: any;
+  qrCode: any;
   constructor() {}
 }

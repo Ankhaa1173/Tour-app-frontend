@@ -73,7 +73,29 @@ export class HttpService {
     return this.http.post(this.url + 'user/companyListInsert', data);
   }
 
+  updateCompany(data: any) {
+    return this.http.post(this.url + 'user/companyListUpdate', data);
+  }
+
+  detailCompany(data: any) {
+    return this.http.post(this.url + 'user/companyListDetail', data);
+  }
+
   insertSavedPlaces(data: any) {
     return this.http.post(this.url + 'tour/savedPlaceListInsert', data);
+  }
+  insertOperator(data: any) {
+    return this.http.post(this.url + 'user/operatorListInsert', data);
+  }
+  getOperator(data: any) {
+    return this.http.post(this.url + 'user/operatorListDetail', data);
+  }
+  insertOrder(data: any) {
+    return this.http.post(this.url + 'tour/orderListInsert', data, {
+      responseType: 'blob',
+    });
+  }
+  getOrdersForUser(data: any) {
+    return this.http.post(this.url + 'tour/orderList', data);
   }
 }

@@ -1,17 +1,23 @@
 <main>
   <article class="user-info">
-    <img src="../../assets/testImage.png" alt="" />
+    <img src="../../assets/user.png" alt="" />
     <div class="user-infos">
       <article>
         <h2>{{ userData["first_name"] + "-" + userData["last_name"] }}</h2>
         <div class="user-info-list">
           <ul>
             <li>{{ userData["email"] }}</li>
-            <li>Ulaanbaatar Mongolia</li>
+            <li *ngIf="userLevel == 1">Phone: {{ userData["phone_no"] }}</li>
+            <li *ngIf="userLevel == 2">
+              Company id: {{ userData["company"] }}
+            </li>
+            <li *ngIf="userLevel == 9">An operator</li>
           </ul>
           <ul>
             <li>User level: {{ userData["user_level"] }}</li>
-            <li>Created date: {{ userData["created_date"] }}</li>
+            <li>
+              Created date: {{ userData["created_date"] | date : "medium" }}
+            </li>
           </ul>
         </div>
       </article>
@@ -20,20 +26,25 @@
 
   <article class="add-info">
     <aside>
-      <h4 (click)="changePage(1)" *ngIf="userLevel == 0">Saved places</h4>
+      <h4 (click)="changePage(1)" *ngIf="userLevel == 1">Saved places</h4>
       <h4 (click)="changePage(2)">Settings</h4>
-      <h4 (click)="changePage(3)" *ngIf="userLevel == 0">Reviews</h4>
-      <h4 (click)="changePage(4)" *ngIf="userLevel == 1">Add Tour</h4>
-      <h4 (click)="changePage(5)" *ngIf="userLevel == 1">My tours</h4>
-      <h4 (click)="changePage(6)" *ngIf="userLevel == 1">
+      <h4 (click)="changePage(3)" *ngIf="userLevel == 1">Reviews</h4>
+      <h4 (click)="changePage(10)" *ngIf="userLevel == 1">Orders</h4>
+      <h4 (click)="changePage(4)" *ngIf="userLevel == 2">Add Tour</h4>
+      <h4 (click)="changePage(5)" *ngIf="userLevel == 2">My tours</h4>
+      <h4 (click)="changePage(6)" *ngIf="userLevel == 2">
         Change company info
       </h4>
 
       <h4 (click)="changePage(7)" *ngIf="userLevel == 9">Add Company</h4>
       <h4 (click)="changePage(8)" *ngIf="userLevel == 9">Add operator</h4>
-      <h4 (click)="changePage(9)" *ngIf="userLevel == 9">Add constant</h4>
+      <h4 (click)="changePage(9)" *ngIf="userLevel == 10">Add constant</h4>
     </aside>
-    <article [class.showBG]="pageId == 2 || pageId == 4 || pageId == 7">
+    <article
+      [class.showBG]="
+        pageId == 2 || pageId == 4 || pageId == 6 || pageId == 7 || pageId == 8
+      "
+    >
       <div *ngIf="pageId == 1">
         <!-- <h2>Saved places</h2>
         <div class="tour-list">
@@ -80,9 +91,32 @@
               name="email"
             />
           </div>
-          <div *ngIf="false">
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" name="phone" />
+          <div>
+            <label for="phone_no">Phone</label>
+            <input
+              formControlName="phone_no"
+              type="text"
+              id="phone_no"
+              name="phone_no"
+            />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div>
+            <label for="password_re">Confirm Password</label>
+            <input
+              formControlName="password_re"
+              type="password"
+              id="password_re"
+              name="password_re"
+            />
           </div>
           <input type="submit" value="submit" />
         </form>
@@ -90,82 +124,137 @@
       <div *ngIf="pageId == 3">
         <h2>Reviews</h2>
         <div class="reviews d-flex flex-wrap justify-content-between">
-          <review-card></review-card>
-          <review-card></review-card>
-          <review-card></review-card>
-          <review-card></review-card>
+          <review-card
+            *ngFor="let review of reviewList"
+            [userId]="review.user_id"
+            [tourId]="review.tour_id"
+            [userName]="userData['first_name'] + ' ' + userData['last_name']"
+            [rating]="review.rating"
+            [review]="review.review"
+          ></review-card>
+        </div>
+      </div>
+      <div class="orders" *ngIf="pageId == 10">
+        <h2>Orders</h2>
+        <div class="reviews d-flex flex-wrap justify-content-between">
+          <app-orderlist
+            *ngFor="let order of orderList"
+            [tourDate]="order.tour_date"
+            [orderDate]="order.order_date"
+            [payAmount]="order.pay_amount"
+            [paidAmount]="order.paid_amount"
+            [isConfirmed]="order.is_confirmed"
+            [status]="order.status"
+          ></app-orderlist>
         </div>
       </div>
       <div *ngIf="pageId == 4">
         <h2>Add Tour</h2>
         <form [formGroup]="form" (submit)="insertForm()" class="d-flex">
-          <div>
-            <label for="name">Name</label>
-            <input formControlName="name" type="text" id="name" name="name" />
+          <div class="form-row">
+            <div>
+              <label for="name">Name</label>
+              <input formControlName="name" type="text" id="name" name="name" />
+            </div>
+            <div>
+              <label for="duration">Duration</label>
+              <input
+                formControlName="duration"
+                type="number"
+                id="duration"
+                name="duration"
+              />
+            </div>
           </div>
-          <div>
-            <label for="duration">Duration</label>
-            <input
-              formControlName="duration"
-              type="number"
-              id="duration"
-              name="duration"
-            />
+          <div class="form-row">
+            <div>
+              <label for="price">Price</label>
+              <input
+                formControlName="price"
+                type="number"
+                id="price"
+                name="price"
+              />
+            </div>
+            <div>
+              <label for="level">Level</label>
+              <input
+                formControlName="level"
+                type="number"
+                id="level"
+                name="level"
+              />
+            </div>
           </div>
-          <div>
-            <label for="price">Price</label>
-            <input
-              formControlName="price"
-              type="number"
-              id="price"
-              name="price"
-            />
+          <div class="form-row">
+            <div>
+              <label for="recommended_people_no">Recommended people no</label>
+              <input
+                formControlName="recommended_people_no"
+                type="number"
+                id="recommended_people_no"
+                name="recommended_people_no"
+              />
+            </div>
+            <div>
+              <label for="type">Type</label>
+              <input formControlName="type" type="text" id="type" name="type" />
+            </div>
           </div>
-          <div>
-            <label for="level">Level</label>
-            <input
-              formControlName="level"
-              type="number"
-              id="level"
-              name="level"
-            />
+          <div class="form-row">
+            <div>
+              <label for="tag1">Tag 1</label>
+              <input formControlName="tag1" type="text" id="tag1" name="tag1" />
+            </div>
+            <div>
+              <label for="tag2">Tag 2</label>
+              <input formControlName="tag2" type="text" id="tag2" name="tag2" />
+            </div>
+            <div>
+              <label for="tag3">Tag 3</label>
+              <input formControlName="tag3" type="text" id="tag3" name="tag3" />
+            </div>
           </div>
-          <div>
-            <label for="description">description</label>
-            <input
-              formControlName="description"
-              type="text"
-              id="description"
-              name="description"
-            />
+          <div class="form-row">
+            <div>
+              <label for="district">district</label>
+              <input
+                formControlName="district"
+                type="text"
+                id="district"
+                name="district"
+              />
+            </div>
+            <div>
+              <label for="province">province</label>
+              <input
+                formControlName="province"
+                type="text"
+                id="province"
+                name="province"
+              />
+            </div>
           </div>
-          <div>
-            <label for="district">district</label>
-            <input
-              formControlName="district"
-              type="text"
-              id="district"
-              name="district"
-            />
-          </div>
-          <div>
-            <label for="province">province</label>
-            <input
-              formControlName="province"
-              type="text"
-              id="province"
-              name="province"
-            />
-          </div>
-          <div>
-            <label for="img">img</label>
-            <input
-              formControlName="main_img_path"
-              type="file"
-              id="img"
-              name="img"
-              (change)="onImageChanged($event)"
-            />
+          <div class="form-row">
+            <div>
+              <label for="description">description</label>
+              <input
+                formControlName="description"
+                type="text"
+                id="description"
+                name="description"
+              />
+            </div>
+            <div>
+              <label for="img">img</label>
+              <input
+                formControlName="main_img_path"
+                type="file"
+                id="img"
+                name="img"
+                (change)="onImageChanged($event)"
+              />
+            </div>
           </div>
           <input type="submit" value="submit" />
         </form>
@@ -182,7 +271,42 @@
             [imgPath]="tour.main_img_path"
           ></tour-item-card>
         </div> -->
-        <app-tour-list [showFilter]="false"></app-tour-list>
+        <app-tour-list
+          [showFilter]="false"
+          [initFilter]="{ company: userData['company'] }"
+        ></app-tour-list>
+      </div>
+      <div *ngIf="pageId == 6">
+        <h2>Update Company</h2>
+        <form
+          [formGroup]="companyForm"
+          (submit)="updateCompany()"
+          class="d-flex"
+        >
+          <div>
+            <label for="name">Name</label>
+            <input formControlName="name" type="text" id="name" name="name" />
+          </div>
+          <div>
+            <label for="website">Website</label>
+            <input
+              formControlName="website"
+              type="text"
+              id="website"
+              name="website"
+            />
+          </div>
+          <div>
+            <label for="bankaccountno">Bank account</label>
+            <input
+              formControlName="bankaccountno"
+              type="text"
+              id="bankaccountno"
+              name="bankaccountno"
+            />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
       </div>
       <div *ngIf="pageId == 7">
         <h2>Add Company</h2>
@@ -211,6 +335,29 @@
               type="text"
               id="bankaccountno"
               name="bankaccountno"
+            />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+      <div *ngIf="pageId == 8">
+        <h2>Add Operator</h2>
+        <form
+          [formGroup]="operatorForm"
+          (submit)="insertOperator()"
+          class="d-flex"
+        >
+          <div>
+            <label for="id">User</label>
+            <input formControlName="id" type="text" id="id" name="id" />
+          </div>
+          <div>
+            <label for="company_id">Company</label>
+            <input
+              formControlName="company_id"
+              type="text"
+              id="company_id"
+              name="company_id"
             />
           </div>
           <input type="submit" value="submit" />
